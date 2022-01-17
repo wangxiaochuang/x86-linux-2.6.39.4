@@ -78,3 +78,7 @@ GTAGS
 *.orig
 *~
 \#*#
+
+
+*.lds
+arch/x86/kernel/cpu/capflags.c
