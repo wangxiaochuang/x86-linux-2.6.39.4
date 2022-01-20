@@ -2,15 +2,16 @@
 # Makefile for the linux kernel.
 #
 
-obj-y     = sched.o fork.o exec_domain.o panic.o printk.o \
-	    cpu.o exit.o itimer.o time.o softirq.o resource.o \
-	    sysctl.o sysctl_binary.o capability.o ptrace.o timer.o user.o \
-	    signal.o sys.o kmod.o workqueue.o pid.o \
-	    rcupdate.o extable.o params.o posix-timers.o \
-	    kthread.o wait.o kfifo.o sys_ni.o posix-cpu-timers.o mutex.o \
-	    hrtimer.o rwsem.o nsproxy.o srcu.o semaphore.o \
-	    notifier.o ksysfs.o pm_qos_params.o sched_clock.o cred.o \
-	    async.o range.o jump_label.o
+#obj-y     = sched.o fork.o exec_domain.o panic.o printk.o \
+#	    cpu.o exit.o itimer.o time.o softirq.o resource.o \
+#	    sysctl.o sysctl_binary.o capability.o ptrace.o timer.o user.o \
+#	    signal.o sys.o kmod.o workqueue.o pid.o \
+#	    rcupdate.o extable.o params.o posix-timers.o \
+#	    kthread.o wait.o kfifo.o sys_ni.o posix-cpu-timers.o mutex.o \
+#	    hrtimer.o rwsem.o nsproxy.o srcu.o semaphore.o \
+#	    notifier.o ksysfs.o pm_qos_params.o sched_clock.o cred.o \
+#	    async.o range.o jump_label.o
+obj-y      = printk.o timer.o pid.o cred.o nsproxy.o signal.o exec_domain.o user.o
 obj-y += groups.o
 
 ifdef CONFIG_FUNCTION_TRACER

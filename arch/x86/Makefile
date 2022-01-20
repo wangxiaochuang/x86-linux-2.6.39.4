@@ -125,7 +125,7 @@ head-y += arch/x86/kernel/head$(BITS).o
 head-y += arch/x86/kernel/head.o
 head-y += arch/x86/kernel/init_task.o
 
-libs-y  += arch/x86/lib/
+libs-y  += #arch/x86/lib/
 
 # See arch/x86/Kbuild for content of core part of the kernel
 core-y += arch/x86/
