@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [ "$1" = "qemu" ]; then
+	qemu-system-i386 -s -S -smp 1 -m 1G -drive format=raw,file=arch/x86/boot/bzImage,index=0,if=floppy -boot a -curses
+fi
+
+if [ "$1" = "kill" ]; then
+    killall qemu-system-i386
+fi
+
+if [ "$1" = "gdb" ]; then
+    ugdb --layout "2s-(1c|1e)" -x debug/gdbinit
+    ps -ef |grep 'qemu-system-i386' |grep -v grep |awk '{print $$2}' |xargs kill
+fi

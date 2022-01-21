@@ -1,10 +1,10 @@
 #!/bin/bash
-dir="kernel"
+dir="arch"
 while true; do
-    make vmlinux 2>&1 |grep "No rule to make target '${dir}/"
+    make bzImage 2>&1 |grep "No rule to make target 'arch/x86/"
     if [ $? -eq 0 ]
     then
-        file=`make vmlinux 2>&1 |awk "/No rule to make target '${dir}\//{print $1}" |cut -d"'" -f2`
+        file=`make bzImage 2>&1 |awk "/No rule to make target 'arch\/x86\//{print $1}" |cut -d"'" -f2`
         prefix=`echo $file |cut -d"." -f1`
         suffix=`echo $file |cut -d"." -f2`
         if [ "$suffix" = "o" ]; then

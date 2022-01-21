@@ -780,8 +780,8 @@ define rule_vmlinux__
 		rm -f $@;                                                    \
 		/bin/false;                                                  \
 	fi;
-	$(verify_kallsyms)
 endef
+	#$(verify_kallsyms)
 
 
 ifdef CONFIG_KALLSYMS
@@ -817,7 +817,7 @@ define verify_kallsyms
 	$(Q)cmp -s System.map .tmp_System.map ||                             \
 		(echo Inconsistent kallsyms data;                            \
 		 echo Try setting CONFIG_KALLSYMS_EXTRA_PASS;                \
-		 rm .tmp_kallsyms* ; /bin/false )
+		 rm -f .tmp_kallsyms* ; /bin/false )
 endef
 
 # Update vmlinux version before link
@@ -895,6 +895,11 @@ endif
 	$(call vmlinux-modpost)
 	#$(call if_changed_rule,vmlinux__)
 	$(Q)rm -f .old_version
+	rm -f debug/vmlinux.debug
+	objcopy --only-keep-debug vmlinux debug/vmlinux.debug
+	strip --strip-debug --strip-unneeded vmlinux
+	objcopy --add-gnu-debuglink="debug/vmlinux.debug" vmlinux
+	chmod -x "debug/vmlinux.debug"
 
 # build vmlinux.o first to catch section mismatch errors early
 ifdef CONFIG_KALLSYMS
@@ -1540,5 +1545,3 @@ FORCE:
 # information in a variable so we can use it in if_changed and friends.
 .PHONY: $(PHONY)
 
-dvmlinux:
-	docker run --rm -v "$(CURDIR)/../":/usr/src/myapp -w /usr/src/myapp/linux-2.6.39.4 i386/gcc:4.9 make vmlinux
